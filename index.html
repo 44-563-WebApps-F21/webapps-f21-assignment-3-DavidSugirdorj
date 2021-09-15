@@ -73,11 +73,52 @@
             <td>at most 10$ buy packs</td>
         </tr>
     </table>
+    <hr>
+
+    <h3>Algorithm</h3>
+    <blockquote cite="https://www.techiedelight.com/single-source-shortest-paths-dijkstras-algorithm/">
+        Given a source vertex s from a set of vertices V in a weighted graph where all its edge weights
+        <p>w(u, v) are non-negative, find the shortest path weights d(s, v) </p>
+        from source s for all vertices v present in the graph.
+    </blockquote>
+    <a href="https://www.techiedelight.com/single-source-shortest-paths-dijkstras-algorithm/">Link to Source!!</a>
+    <pre>const int INF = 1000000000;    
+        vector<vector<pair<int, int>>> adj;
+        
+        void dijkstra(int s, vector<int> & d, vector<int> & p) {
+            int n = adj.size();
+            d.assign(n, INF);
+            p.assign(n, -1);
+            vector<bool> u(n, false);
+        
+            d[s] = 0;
+            for (int i = 0; i < n; i++) {
+                int v = -1;
+                for (int j = 0; j < n; j++) {
+                    if (!u[j] && (v == -1 || d[j] < d[v]))
+                        v = j;
+                }
+        
+                if (d[v] == INF)
+                    break;
+        
+                u[v] = true;
+                for (auto edge : adj[v]) {
+                    int to = edge.first;
+                    int len = edge.second;
+        
+                    if (d[v] + len < d[to]) {
+                        d[to] = d[v] + len;
+                        p[to] = v;
+                    }
+                }
+            }
+        }</pre>
 
 
     </head>
     <footer>
-        <a href="aboutme.html">About ME!!!</a>
+        <h2><a href="aboutme.html">About ME!!!</a></h2>
     </footer>
 </body>
 
